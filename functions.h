@@ -51,7 +51,7 @@ void superShuffle(int arr[], int n, int size)
 {
     if (n <= 0)
     {
-        n = 2;
+        n = size;
     }
     int new_size = size - (size % n);
     int crapSize = size / n;
@@ -62,7 +62,6 @@ void superShuffle(int arr[], int n, int size)
     {
         starter = (i  * crapSize);
         reverseArray(arr, starter, crapSize);
-    }
-    
-    
+    } 
 }
+
