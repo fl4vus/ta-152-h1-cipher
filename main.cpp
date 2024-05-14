@@ -135,5 +135,5 @@ int main(int argc, char** argv)
     
     cout << "\nOUTPUT: \n" << scrambled << endl;
 
-	return 0;
+    return 0;
 }
