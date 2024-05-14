@@ -9,10 +9,11 @@ using namespace std;
 
 #define EXIT_INVALID_ARGS 0x01
 #define EXIT_INVALID_ARG_MODE 0x02
+#define EXIT_INVALID_KEY 0x03
 
 #define SAMPLE_LIMIT 4096
 
-const char characters[] = 
+char characters[] = 
     {
         '\0','\a','\b', '\t', '\n', '\v', '\f', '\r', ' ',
         '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
@@ -30,11 +31,14 @@ int main(int argc, char** argv)
 {
 	int index[mainsize];
     int key;
-    int key0, key1, key2, key3;
+    int keyArr[4];
 
     int mode;
+    int effectivesize;
+    int iterator;
 
     char sample[SAMPLE_LIMIT];
+    char scrambled[SAMPLE_LIMIT];
 
     if (!(argc == 2))
     {
@@ -72,7 +76,6 @@ int main(int argc, char** argv)
     case 0:
         cout << "\nEnter Input String: \n";
         fgets(sample, SAMPLE_LIMIT, stdin);
-        cout << "\nINPUT: \n" << sample << endl;
         break;
 
     case 1:
@@ -82,10 +85,55 @@ int main(int argc, char** argv)
     default:
         cout << "\nOk... Enter Input String: \n";
         fgets(sample, SAMPLE_LIMIT, stdin);
-        cout << "\nINPUT: " << sample << endl;
+        //cout << "\nINPUT: " << sample << endl;
         break;
     }
 
+    iterator = 0;
+    effectivesize = 0;
+    while (sample[iterator] != '\0')
+    {
+        effectivesize++;
+        iterator++;
+    }
+
+    cout << "\nINPUT: \n" << sample << "\nSIZE: "<< effectivesize << endl;
+
+    for (int i= 0; i < mainsize; i++)
+    {
+        *(index + i) = i;
+    }
+
+    cout << "\nEnter Cipher Key: ";
+    scanf("%d", &key);
+
+    if (key < 1000 || key > 9999)
+    {
+        fprintf(stderr, "Invalid Key Format!\n");
+        exit(EXIT_INVALID_KEY);
+    }
+
+    keyArr[0] = key/1000;
+    keyArr[1] = (key%1000)/100;
+    keyArr[2] = (key%100)/10;
+    keyArr[3] = key%10;
+
+    for (int i = 0; i < 4; i++)
+    {
+        superShuffle(index, keyArr[i], mainsize);
+    }
     
+    for (int i = 0; i < effectivesize; i++)
+    {
+        int buf1 = findCharPosition(characters, mainsize, sample[i]);
+        int buf2 = findMapPosition(index, mainsize, buf1);
+        char buf3 = characters[buf2];
+        //cout << i << "\t";
+        scrambled[i] = buf3;
+        //cout << sample[i] << "\t" << scrambled[i] << "\n";
+    }
+    
+    cout << "\nOUTPUT: \n" << scrambled << endl;
+
 	return 0;
 }
