@@ -29,7 +29,7 @@ int mainsize = sizeof(characters)/sizeof(characters[0]);
 
 int main(int argc, char** argv)
 {
-	int index[mainsize];
+    int index[mainsize];
     int key;
     int keyArr[4];
 
