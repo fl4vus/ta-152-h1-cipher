@@ -53,9 +53,9 @@ void superShuffle(int arr[], int n, int size)
     {
         n = size;
     }
-    int new_size = size - (size % n);
+    //int new_size = size - (size % n);
     int crapSize = size / n;
-    int starter, ender;
+    int starter;
     starter = 0;
     //ender = crapSize - 1;
     for (int i = 0; i < n; i++)
