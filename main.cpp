@@ -15,7 +15,7 @@ using namespace std;
 
 char characters[] = 
     {
-        '\0','\a','\b', '\t', '\n', '\v', '\f', '\r', ' ',
+        '\0', '\t', '\n', ' ', '\\',
         '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>',
         '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     char sample[SAMPLE_LIMIT];
     char scrambled[SAMPLE_LIMIT];
 
-    if (!(argc == 3))
+    if (!((argc == 3)&&(strcmp(argv[1], "realtime") == 0)||(argc == 4)&&(strcmp(argv[1], "readfile") == 0)))
     {
         fprintf(stderr, "ERROR: Invalid Arguments!\n");
         manp();
